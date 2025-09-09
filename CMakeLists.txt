@@ -31,14 +31,14 @@ include(pico_sdk_import.cmake)
 
 # Set the project name
 set(CMAKE_PROJECT_NAME MIDI2Toy)
-
-project(${CMAKE_PROJECT_NAME} C CXX ASM)
+# Set the project name
+project(MIDI2Toy C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
-add_executable(${CMAKE_PROJECT_NAME} main.cpp usb_descriptors.c
+add_executable(${PROJECT_NAME} main.cpp usb_descriptors.c
         libs/tusb_ump/ump_device.cpp
         libs/AM_MIDI2.0Lib/src/umpMessageCreate.cpp
         libs/AM_MIDI2.0Lib/src/midiCIMessageCreate.cpp
@@ -47,18 +47,18 @@ add_executable(${CMAKE_PROJECT_NAME} main.cpp usb_descriptors.c
         libs/AM_MIDI2.0Lib/src/mcoded7.cpp
 )
 
-pico_set_program_name(${CMAKE_PROJECT_NAME} "${CMAKE_PROJECT_NAME}")
-pico_set_program_version(${CMAKE_PROJECT_NAME} "0.1")
+pico_set_program_name(${PROJECT_NAME} "${PROJECT_NAME}")
+pico_set_program_version(${PROJECT_NAME} "0.1")
 
 # Add the standard library to the build
-target_link_libraries(${CMAKE_PROJECT_NAME} pico_stdlib
+target_link_libraries(${PROJECT_NAME} pico_stdlib
         pico_multicore
         hardware_gpio
         hardware_adc
         tinyusb_device tinyusb_board)
 
 # Add the standard include files to the build
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/tusb_ump
@@ -66,7 +66,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(${CMAKE_PROJECT_NAME} 1)
-pico_enable_stdio_usb(${CMAKE_PROJECT_NAME} 0)
+pico_enable_stdio_uart(${PROJECT_NAME} 1)
+pico_enable_stdio_usb(${PROJECT_NAME} 0)
 
-pico_add_extra_outputs(${CMAKE_PROJECT_NAME})
+pico_add_extra_outputs(${PROJECT_NAME})
